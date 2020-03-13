@@ -1,13 +1,16 @@
 const passport = require("passport");
 const GitHubStrategy = require("passport-github").Strategy;
+const mongoose = require("mongoose");
+
+const User = mongoose.model("users");
 
 passport.use(
   new GitHubStrategy(
     {
-      clientID: process.env.GITHUB_CLIENT_ID || "90d8e4c7e4729284896b",
+      clientID: process.env.GITHUB_CLIENT_ID || "85c5a816e3c56de6dbed",
       clientSecret:
         process.env.GITHUB_CLIENT_SECRET ||
-        "4af58abd0a1972f3a303e85b8e43fa2fe1fc4684",
+        "f5098402f2621e6b6d055693fdd2999e1eddf0db",
       callbackURL: "/auth/github/callback"
     },
     (accessToken, refreshToken, profile, cb) => {
@@ -17,6 +20,10 @@ passport.use(
         profile,
         cb
       });
+      new User({
+        githubId: profile.id,
+        name: profile.username
+      }).save();
     }
   )
 );

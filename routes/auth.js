@@ -8,9 +8,7 @@ module.exports = app => {
     });
   });
 
-  app.get("/auth/github/callback", (req, res) => {
-    res.send({});
-  });
+  app.get("/auth/github/callback", passport.authenticate("github"));
 
   app.get("/auth/github", passport.authenticate("github"));
 };
