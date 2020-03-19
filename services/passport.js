@@ -4,6 +4,15 @@ const mongoose = require("mongoose");
 
 const User = mongoose.model("users");
 
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  const deserializedUser = await User.findById(id);
+  done(null, deserializedUser);
+});
+
 passport.use(
   new GitHubStrategy(
     {
@@ -13,17 +22,17 @@ passport.use(
         "f5098402f2621e6b6d055693fdd2999e1eddf0db",
       callbackURL: "/auth/github/callback"
     },
-    (accessToken, refreshToken, profile, cb) => {
-      console.log({
-        accessToken,
-        refreshToken,
-        profile,
-        cb
-      });
-      new User({
-        githubId: profile.id,
-        name: profile.username
-      }).save();
+    async (accessToken, refreshToken, profile, done) => {
+      const user = await User.findOne({ githubId: profile.id });
+      if (user) {
+        done(null, user);
+      } else {
+        const newUser = await new User({
+          githubId: profile.id,
+          name: profile.username
+        }).save();
+        done(null, newUser);
+      }
     }
   )
 );
