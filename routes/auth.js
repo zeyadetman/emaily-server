@@ -13,8 +13,7 @@ module.exports = app => {
     passport.authenticate("github"),
     (req, res) => {
       console.log(req.user);
-      console.log(res.body, req.body);
-      res.redirect(process.env.CLIENT_SIDE_PATH);
+      res.redirect("/");
     }
   );
 
@@ -22,7 +21,7 @@ module.exports = app => {
 
   app.get("/api/logout", (req, res) => {
     req.logout();
-    res.redirect(process.env.CLIENT_SIDE_PATH);
+    res.redirect("/");
   });
 
   app.get("/api/current_user", (req, res) => {
