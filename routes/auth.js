@@ -12,6 +12,8 @@ module.exports = app => {
     "/auth/github/callback",
     passport.authenticate("github"),
     (req, res) => {
+      console.log(req.user);
+      console.log(res.body, req.body);
       res.redirect(process.env.CLIENT_SIDE_PATH);
     }
   );
