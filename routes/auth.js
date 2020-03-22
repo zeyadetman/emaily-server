@@ -12,7 +12,7 @@ module.exports = app => {
     "/auth/github/callback",
     passport.authenticate("github"),
     (req, res) => {
-      res.redirect("/services");
+      res.send(req.user);
     }
   );
 
@@ -20,7 +20,7 @@ module.exports = app => {
 
   app.get("/api/logout", (req, res) => {
     req.logout();
-    res.redirect("/");
+    res.send(req.user);
   });
 
   app.get("/api/current_user", (req, res) => {
