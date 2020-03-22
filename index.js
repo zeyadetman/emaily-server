@@ -1,10 +1,15 @@
+require("dotenv").config();
 const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
 const mongoose = require("mongoose");
 const passport = require("passport");
 const cookieSession = require("cookie-session");
 require("./models/User");
 require("./services/passport");
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(
   cookieSession({
@@ -16,13 +21,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-const authRoutes = require("./routes/auth");
-mongoose.connect(
-  "mongodb+srv://zeyad:admin123@cluster0-7tkvq.mongodb.net/test?retryWrites=true&w=majority",
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
-
-authRoutes(app);
+require("./routes/auth")(app);
+require("./routes/payment")(app);
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
