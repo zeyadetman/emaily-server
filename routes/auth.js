@@ -9,8 +9,9 @@ module.exports = app => {
   app.get(
     "/auth/github/callback",
     passport.authenticate("github"),
-    (req, res) => {
-      console.log(req.user);
+    async (req, res) => {
+      const user = await req.user.save();
+      console.log(user);
       res.redirect("http://localhost:3000/");
     }
   );
