@@ -3,9 +3,7 @@ require("../services/passport");
 
 module.exports = app => {
   app.get("/", (req, res) => {
-    res.send({
-      test: "tes12"
-    });
+    res.send({});
   });
 
   app.get(
@@ -13,7 +11,7 @@ module.exports = app => {
     passport.authenticate("github"),
     (req, res) => {
       console.log(req.user);
-      res.redirect("/");
+      res.redirect("http://localhost:3000/");
     }
   );
 
