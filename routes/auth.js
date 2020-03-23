@@ -3,10 +3,6 @@ const requireLogin = require("../middlewares/requireLogin");
 require("../services/passport");
 
 module.exports = app => {
-  app.get("/", (req, res) => {
-    res.send({});
-  });
-
   app.get(
     "/auth/github/callback",
     passport.authenticate("github"),
@@ -28,5 +24,9 @@ module.exports = app => {
     console.log("req.user");
     console.log(req.user);
     res.send({ user: req.user, test: 1 });
+  });
+
+  app.get("/", (req, res) => {
+    res.send({});
   });
 };
