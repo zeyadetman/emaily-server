@@ -9,7 +9,7 @@ const cookieSession = require("cookie-session");
 require("./models/User");
 require("./services/passport");
 
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
