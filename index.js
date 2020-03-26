@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const cookieSession = require("cookie-session");
 require("./models/User");
+require("./models/Survey");
 require("./services/passport");
 
 app.use(cors({ origin: "http://localhost:3000/", optionsSuccessStatus: 200 }));
