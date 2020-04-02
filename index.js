@@ -27,6 +27,7 @@ app.use(passport.session());
 
 require("./routes/auth")(app);
 require("./routes/payment")(app);
+require("./routes/survey")(app);
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
