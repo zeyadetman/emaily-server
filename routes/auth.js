@@ -9,7 +9,7 @@ module.exports = app => {
     async (req, res) => {
       const user = await req.user.save();
       console.log(user);
-      res.redirect("/");
+      res.redirect("http://localhost:3000/");
     }
   );
 

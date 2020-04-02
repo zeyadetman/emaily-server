@@ -6,4 +6,4 @@ const recipientSchema = new Schema({
   email: String
 });
 
-module.exports = mongoose.model("recipients", recipientSchema);
+module.exports = recipientSchema;
