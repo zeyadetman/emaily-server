@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "concurrently \"nodemon index.js\" \"npm run webhook \" ",
+    "webhook": "lt -h \"http://serverless.social\" -p 5000 -s zeyadetmanemaily"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +23,7 @@
     "mongoose": "^5.9.4",
     "passport": "^0.4.1",
     "passport-github": "^1.1.0",
+    "path-parser": "^6.1.0",
     "sendgrid": "^5.2.3",
     "stripe": "^8.33.0"
   }

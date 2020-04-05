@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: ["testtesttest"]
+    keys: ["testtesttest"],
   })
 );
 
@@ -30,9 +30,8 @@ require("./routes/payment")(app);
 require("./routes/survey")(app);
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 
 const PORT = process.env.PORT || 5000;
-console.clear();
 app.listen(PORT);
