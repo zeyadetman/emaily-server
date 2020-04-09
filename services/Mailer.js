@@ -4,7 +4,6 @@ const helper = sendgrid.mail;
 class Mailer extends helper.Mail {
   constructor(data, content) {
     super();
-    console.log(data);
     const { recipients, subject } = data;
     this.sgApi = sendgrid(process.env.SENDGRID_API_KEY);
     this.from_email = new helper.Email("no-reply@emaily.com");
@@ -18,7 +17,6 @@ class Mailer extends helper.Mail {
   }
 
   formatAddresses(emails) {
-    console.log(emails);
     return emails.map(({ email }) => {
       return new helper.Email(email);
     });
@@ -33,7 +31,7 @@ class Mailer extends helper.Mail {
 
   addRecipients() {
     const personalize = new helper.Personalization();
-    this.recipients.forEach(recipient => {
+    this.recipients.forEach((recipient) => {
       personalize.addTo(recipient);
     });
     this.addPersonalization(personalize);
@@ -43,7 +41,7 @@ class Mailer extends helper.Mail {
     const request = this.sgApi.emptyRequest({
       method: "POST",
       path: "/v3/mail/send",
-      body: this.toJSON()
+      body: this.toJSON(),
     });
 
     return await this.sgApi.API(request);

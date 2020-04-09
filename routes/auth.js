@@ -2,13 +2,12 @@ const passport = require("passport");
 const requireLogin = require("../middlewares/requireLogin");
 require("../services/passport");
 
-module.exports = app => {
+module.exports = (app) => {
   app.get(
     "/auth/github/callback",
     passport.authenticate("github"),
     async (req, res) => {
       const user = await req.user.save();
-      console.log(user);
       res.redirect("http://localhost:3000/");
     }
   );
@@ -21,8 +20,6 @@ module.exports = app => {
   });
 
   app.get("/api/current_user", requireLogin, (req, res) => {
-    console.log("req.user");
-    console.log(req.user);
     res.send({ user: req.user, test: 1 });
   });
 

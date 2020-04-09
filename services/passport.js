@@ -18,17 +18,16 @@ passport.use(
     {
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: "/auth/github/callback"
+      callbackURL: "/auth/github/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(accessToken, refreshToken, profile, done)
       const user = await User.findOne({ githubId: profile.id });
       if (user) {
         done(null, user);
       } else {
         const newUser = await new User({
           githubId: profile.id,
-          name: profile.username
+          name: profile.username,
         }).save();
         done(null, newUser);
       }
