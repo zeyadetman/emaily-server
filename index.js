@@ -10,7 +10,9 @@ require("./models/User");
 require("./models/Survey");
 require("./services/passport");
 
-app.use(cors({ origin: "http://localhost:3000/", optionsSuccessStatus: 200 }));
+app.use(
+  cors({ origin: process.env.CLIENT_SIDE_PATH, optionsSuccessStatus: 200 })
+);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -18,7 +20,7 @@ app.use(bodyParser.json());
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: ["testtesttest"],
+    keys: [process.env.COOKIE_SESSION_KEY],
   })
 );
 

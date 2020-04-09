@@ -8,7 +8,7 @@ module.exports = (app) => {
     passport.authenticate("github"),
     async (req, res) => {
       const user = await req.user.save();
-      res.redirect("http://localhost:3000/");
+      res.redirect(process.env.CLIENT_SIDE_PATH);
     }
   );
 
